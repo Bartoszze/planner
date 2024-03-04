@@ -1,16 +1,25 @@
 import TaskQuanity from "../../Components/TasksInfo";
-import SearchBar from "../../Components/SearchBar";
 import Categories from "../../Components/Categories";
 import Button from "../../Components/ReusableComponents/Button";
+import AddCategory from "../../Components/AddCategory";
+import { useState } from "react";
+import SearchBar from "../../Components/ReusableComponents/Input";
 
 const HomePage = () => {
+  const [showAddBox, setShowAddBox] = useState(false);
+
   return (
     <>
       <h1>Kategorie</h1>
       <TaskQuanity />
       <SearchBar />
       <Categories />
-      <Button color="#F9FAFB" text="+ Dodaj nową kategorie" />
+      <Button
+        color="#549C77"
+        text="Dodaj nową kategorie"
+        onClick={() => setShowAddBox(!showAddBox)}
+      />
+      <AddCategory show={showAddBox} onClose={() => setShowAddBox(false)} />
     </>
   );
 };

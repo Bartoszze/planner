@@ -2,13 +2,14 @@ import "./index.sass";
 
 const Button = (props) => {
   const buttonStyle = {
-    color: props.color,
-    marginRight: props.margin,
-    marginBottom: props.margin,
-    bacgkroundColor: props.bgColor,
+    backgroundColor: props.color,
   };
 
-  return <button style={buttonStyle}>{props.text}</button>;
+  return (
+    <button style={buttonStyle} onClick={props.onClick}>
+      {props.text}
+    </button>
+  );
 };
 
 export default Button;

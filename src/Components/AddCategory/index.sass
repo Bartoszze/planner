@@ -1,0 +1,28 @@
+.addC
+    position: absolute
+    left: 50%
+    top: 50%
+    transform: translate(-50%, -50%)
+    width: 400px
+    border: 1px solid rgba(233, 233, 233, 0.15)
+    border-radius: 15px
+    z-index: 9999
+    // backdrop-filter: blur0px)
+    padding: 40px
+    overflow: hidden
+    animation: animation 1s linear
+    // background-color: #535353
+    background: radial-gradient(50% 50% at 50% 50%, #615959 38.45%, #535353 100%)
+    &__buttons
+        text-align: center
+        button
+            margin: 15px
+    input
+        margin-bottom: 15px
+
+.hide
+    display: none
+
+@keyframes animation
+    0%
+    100%
