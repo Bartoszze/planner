@@ -5,11 +5,19 @@ import "./index.sass";
 
 const AddCategory = ({ show, onClose }) => {
   const [newCategory, setNewCategory] = useState(false);
+  const [urlIMG, setUrlIMG] = useState(false);
+
   const addCat = () => {
-    // const localStorageCategories = JSON.parse(localStorage.getItem("categories"));
-    // const newLocal = [...localStorage,  ]
-    // localStorage.setItem("categories", JSON.stringify(newLocal));
-    // setShowAddBox(!showAddBox);
+    const ob = {
+      name: newCategory,
+      url: urlIMG,
+      tasks: [],
+    };
+    const localStorageCategories = JSON.parse(
+      localStorage.getItem("categories")
+    );
+    const newLocal = [...localStorageCategories, ob];
+    localStorage.setItem("categories", JSON.stringify(newLocal));
   };
 
   return (
@@ -17,11 +25,10 @@ const AddCategory = ({ show, onClose }) => {
       <h2>Nazwa</h2>
       <SearchBar onInputChange={setNewCategory} />
       <h2>Url okładki</h2>
-      <h1>{newCategory}</h1>
-      <SearchBar />
+      <SearchBar onInputChange={setUrlIMG} />
       <div className="addC__buttons">
         <Button color="#AE505A" onClick={onClose} text="Anuluj" />
-        <Button color="#549C77" text="Dodaj" />
+        <Button color="#549C77" text="Dodaj" onClick={(addCat, onClose)} />
       </div>
     </div>
   );
