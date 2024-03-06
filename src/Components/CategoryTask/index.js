@@ -9,6 +9,11 @@ const TaskCategory = (props) => {
   const [newTask, setNewTask] = useState();
 
   const localStorageCategories = JSON.parse(localStorage.getItem("categories"));
+
+  //Puste
+  if (localStorageCategories === !null) {
+    console.log("wyszukaj zadań");
+  }
   const localStorageTasks = localStorageCategories.find(
     (item) => item.name === props.category
   );
@@ -24,7 +29,7 @@ const TaskCategory = (props) => {
           <Button text="Zakończ" color="#549C77" />
         </div>
       ))}
-      <SearchBar onInputChange={setNewTask} />
+      <SearchBar onInputChange={setNewTask} color="#F9FAFB50" />
       <Button text="Usuń kategorie" color="#AE505A" />
 
       {/*  Skeleton
