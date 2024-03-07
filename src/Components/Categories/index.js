@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import errorCover from "../../Assets/Images/bookmark.png"; // Zmienić zdjęcie
+import errorCover from "../../Assets/Images/404.svg"; // Zmienić zdjęcie
 import "./index.sass";
 
 const Categories = () => {
