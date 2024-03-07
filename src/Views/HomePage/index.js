@@ -7,12 +7,13 @@ import SearchBar from "../../Components/ReusableComponents/Input";
 
 const HomePage = () => {
   const [showAddBox, setShowAddBox] = useState(false);
+  const [search, setSearch] = useState();
 
   return (
     <>
       <h1>Kategorie</h1>
       <TaskQuanity />
-      <SearchBar />
+      <SearchBar onInputChange={setSearch} />
       <Categories />
       <Button
         color="#549C77"

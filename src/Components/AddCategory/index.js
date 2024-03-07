@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../ReusableComponents/Button";
 import SearchBar from "../ReusableComponents/Input";
 import "./index.sass";
@@ -6,6 +6,14 @@ import "./index.sass";
 const AddCategory = ({ show, onClose }) => {
   const [newCategory, setNewCategory] = useState(false);
   const [urlIMG, setUrlIMG] = useState(false);
+  const localStorageCategories = JSON.parse(localStorage.getItem("categories"));
+
+  // If localstorage is empty initialize categories
+  useEffect(() => {
+    if (localStorageCategories === null) {
+      localStorage.setItem("categories", JSON.stringify([]));
+    }
+  }, [localStorageCategories]);
 
   const addCat = () => {
     const ob = {
@@ -13,11 +21,10 @@ const AddCategory = ({ show, onClose }) => {
       url: urlIMG,
       tasks: [],
     };
-    const localStorageCategories = JSON.parse(
-      localStorage.getItem("categories")
-    );
+
     const newLocal = [...localStorageCategories, ob];
     localStorage.setItem("categories", JSON.stringify(newLocal));
+    onClose();
   };
 
   return (
@@ -28,7 +35,7 @@ const AddCategory = ({ show, onClose }) => {
       <SearchBar onInputChange={setUrlIMG} />
       <div className="addC__buttons">
         <Button color="#AE505A" onClick={onClose} text="Anuluj" />
-        <Button color="#549C77" text="Dodaj" onClick={(addCat, onClose)} />
+        <Button color="#549C77" text="Dodaj" onClick={addCat} />
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ const TaskQuanity = () => {
   const categories = JSON.parse(localStorage.getItem("categories"));
 
   useEffect(() => {
-    setQuanity(categories.length);
+    setQuanity(categories ? categories.length : null);
   }, [categories]);
 
   return (

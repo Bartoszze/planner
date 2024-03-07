@@ -9,27 +9,31 @@ const TaskCategory = (props) => {
   const [newTask, setNewTask] = useState();
 
   const localStorageCategories = JSON.parse(localStorage.getItem("categories"));
-
-  //Puste
-  if (localStorageCategories === !null) {
-    console.log("wyszukaj zadań");
-  }
   const localStorageTasks = localStorageCategories.find(
     (item) => item.name === props.category
   );
 
+  const addTask = () => {
+    const addTask = [...localStorageTasks.tasks, [`${newTask}`, 0]];
+    // localStorage.setItem(localStorageTasks.tasks, JSON.stringify(addTask));
+    console.log(addTask);
+  };
+
   return (
     <div className="tasks">
       {localStorageTasks.tasks.map((task, status) => (
-        <div className="task__block" key={task}>
-          <button className="task__block--bookmark">
+        <div className="tasks__block" key={task}>
+          <button className="tasks__block--bookmark">
             <img src={status ? bookmarkActive : bookmark} alt="bookmark" />
           </button>
           <h2>{task}</h2>
           <Button text="Zakończ" color="#549C77" />
         </div>
       ))}
-      <SearchBar onInputChange={setNewTask} color="#F9FAFB50" />
+      <div className="tasks__add">
+        <SearchBar onInputChange={setNewTask} color="#F9FAFB50" />
+        <Button text="Dodaj zadanie" onClick={addTask} color="#F9FAFB50" />
+      </div>
       <Button text="Usuń kategorie" color="#AE505A" />
 
       {/*  Skeleton
