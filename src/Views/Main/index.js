@@ -1,11 +1,12 @@
 import Loader from "../Loader/";
 import Nav from "../../Components/Nav";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import "./index.sass";
 
 const Main = () => {
-  useEffect(() => {}, []);
   return (
     <Suspense fallback={<Loader />}>
       <div className="container">
@@ -16,6 +17,7 @@ const Main = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </Suspense>
   );
 };

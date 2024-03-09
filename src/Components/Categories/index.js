@@ -23,7 +23,9 @@ const Categories = () => {
                 <h2>{category.name}</h2>
                 <p>
                   {category.tasks.length}
-                  {category.tasks.length > 1 ? " zadania" : " zadań"}
+                  {category.tasks.length > 1 && category.tasks.length < 5
+                    ? " zadania"
+                    : " zadań"}
                 </p>
               </div>
             </Link>
