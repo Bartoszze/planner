@@ -17,7 +17,7 @@ const Main = () => {
           </div>
         </div>
       </div>
-      <ToastContainer />
+      <ToastContainer limit={3} />
     </Suspense>
   );
 };

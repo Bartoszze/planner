@@ -1,54 +1,24 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
+import { notifySuccess, notifyWarn } from "../ReusableComponents/Notifications";
+import ErrorComponent from "../ErrorInfo";
 import bookmark from "../../Assets/Images/bookmark.png";
 import bookmarkActive from "../../Assets/Images/bookmarkactive.png";
 import Button from "../ReusableComponents/Button";
 import SearchBar from "../ReusableComponents/Input";
-import notFoundImage from "../../Assets/Images/404.svg";
 import "./index.sass";
-
-const ErrorComponent = (
-  <div className="errorCategory">
-    <img src={notFoundImage} alt="404 Error" />
-    <h1>Brak takiej kategorii. Popraw swój url</h1>
-  </div>
-);
 
 const TaskCategory = (props) => {
   const [newTask, setNewTask] = useState();
-  const categories = JSON.parse(localStorage.getItem("categories"));
+  const getLocal = () => JSON.parse(localStorage.getItem("categories"));
+  const [categories, setCategories] = useState(getLocal);
+  const updatedCategories = [...categories];
   const tasksIndex = categories?.findIndex(
     (item) => item.name === props.category
   );
 
   if (categories === null) {
-    return ErrorComponent;
+    return <ErrorComponent />;
   }
-
-  // Wyexportować te notyfikacje
-  const notifySuccess = (text) =>
-    toast.success(text, {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-
-  const notifyWarn = (text) =>
-    toast.warn(text, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    });
 
   const addTask = () => {
     if (newTask === "" || newTask === undefined) {
@@ -63,32 +33,37 @@ const TaskCategory = (props) => {
 
       localStorage.setItem("categories", JSON.stringify(updatedCategories));
       setNewTask("");
+
       // Notification
       notifySuccess("Dodano zadanie");
+      setCategories(getLocal);
     }
   };
 
   const toogleBookmarkStatus = (index, text) => {
-    const updatedCategories = [...categories];
     updatedCategories[tasksIndex].tasks[index][1] =
       !updatedCategories[tasksIndex].tasks[index][1];
     localStorage.setItem("categories", JSON.stringify(updatedCategories));
+    setCategories(getLocal);
+
     // Notification;
     notifySuccess("Zmieniono status zadania: " + text);
   };
 
   const deleteTask = (index) => {
-    const updatedCategories = [...categories];
     updatedCategories[tasksIndex].tasks.splice(index, 1);
     localStorage.setItem("categories", JSON.stringify(updatedCategories));
+
+    setCategories(getLocal);
+
     // Notification;
     notifySuccess("Usunięto zadanie");
   };
 
   const deleteCategory = () => {
-    const updatedCategories = [...categories];
     updatedCategories.splice(tasksIndex, 1);
     localStorage.setItem("categories", JSON.stringify(updatedCategories));
+    setCategories(getLocal);
     // Notification
     notifySuccess("Usunięto kategorie");
     // Dodac redirect do homepage
@@ -97,27 +72,26 @@ const TaskCategory = (props) => {
   return (
     <>
       <div className="tasks">
-        {tasksIndex < 0
-          ? ErrorComponent
-          : categories[tasksIndex]?.tasks.map((task, index) => (
-              <div className="tasks__block">
-                <button
-                  className="tasks__block--bookmark"
-                  onClick={() => toogleBookmarkStatus(index, task[0])}
-                >
-                  <img
-                    src={task[1] ? bookmarkActive : bookmark}
-                    alt="bookmark"
-                  />
-                </button>
-                <h2>{task[0]}</h2>
-                <Button
-                  text="Zakończ"
-                  onClick={() => deleteTask(index)}
-                  color="#549C77"
-                />
-              </div>
-            ))}
+        {tasksIndex < 0 ? (
+          <ErrorComponent />
+        ) : (
+          categories[tasksIndex]?.tasks.map((task, index) => (
+            <div className="tasks__block" key={task[0]}>
+              <button
+                className="tasks__block--bookmark"
+                onClick={() => toogleBookmarkStatus(index, task[0])}
+              >
+                <img src={task[1] ? bookmarkActive : bookmark} alt="bookmark" />
+              </button>
+              <h2>{task[0]}</h2>
+              <Button
+                text="Zakończ"
+                onClick={() => deleteTask(index)}
+                color="#549C77"
+              />
+            </div>
+          ))
+        )}
       </div>
       {tasksIndex >= 0 && (
         <>

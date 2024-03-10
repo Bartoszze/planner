@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import errorCover from "../../Assets/Images/404.svg"; // Zmienić zdjęcie
+import errorCover from "../../Assets/Images/404.svg";
 import "./index.sass";
 
 const Categories = () => {
@@ -10,33 +10,26 @@ const Categories = () => {
 
   return (
     <div className="categories">
-      {localStorageCategories
-        ? localStorageCategories.map((category) => (
-            <Link key={category.name} to={"/category/" + category.name}>
-              <div className="categories__block">
-                <img
-                  className="categories__block--img"
-                  src={category.url}
-                  onError={onImageError}
-                  alt="Category cover"
-                />
-                <h2>{category.name}</h2>
-                <p>
-                  {category.tasks.length}
-                  {category.tasks.length > 1 && category.tasks.length < 5
-                    ? " zadania"
-                    : " zadań"}
-                </p>
-              </div>
-            </Link>
-          ))
-        : null}
-      {/* Skeleton
-      <div className="categories__block">
-        <img className="categories__block--img" src="" alt="Category cover" />
-        <h2>Testowe</h2>
-        <p>2 zadania</p>
-      </div> */}
+      {localStorageCategories &&
+        localStorageCategories.map((category) => (
+          <Link key={category.name} to={"/category/" + category.name}>
+            <div className="categories__block">
+              <img
+                className="categories__block--img"
+                src={category.url}
+                onError={onImageError}
+                alt="Category cover"
+              />
+              <h2>{category.name}</h2>
+              <p>
+                {category.tasks.length}
+                {category.tasks.length > 1 && category.tasks.length < 5
+                  ? " zadania"
+                  : " zadań"}
+              </p>
+            </div>
+          </Link>
+        ))}
     </div>
   );
 };
