@@ -1,3 +1,4 @@
+import BookMark from "../BookMark";
 import "./index.sass";
 
 const Nav = () => {
@@ -5,6 +6,7 @@ const Nav = () => {
     <div className="blockSideBar">
       <h1>Planner</h1>
       <p>Wszystkie zadania w jednym miejscu.</p>
+      <BookMark />
       {/* Komponent zakładki */}
       {/* Komponent pomodoro */}
     </div>

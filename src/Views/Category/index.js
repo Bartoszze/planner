@@ -8,7 +8,7 @@ const Category = () => {
   return (
     <>
       <HeaderCategory headline={urlCategory} />
-      <TaskCategory category={urlCategory} />
+      <TaskCategory urlError={urlCategory} category={urlCategory} />
     </>
   );
 };

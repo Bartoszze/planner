@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { notifySuccess, notifyWarn } from "../ReusableComponents/Notifications";
 import ErrorComponent from "../ErrorInfo";
-import bookmark from "../../Assets/Images/bookmark.png";
-import bookmarkActive from "../../Assets/Images/bookmarkactive.png";
+import bookmarkImage from "../../Assets/Images/bookmark.png";
+import bookmarkActiveImage from "../../Assets/Images/bookmarkactive.png";
 import Button from "../ReusableComponents/Button";
 import SearchBar from "../ReusableComponents/Input";
 import "./index.sass";
@@ -11,14 +11,13 @@ const TaskCategory = (props) => {
   const [newTask, setNewTask] = useState();
   const getLocal = () => JSON.parse(localStorage.getItem("categories"));
   const [categories, setCategories] = useState(getLocal);
+  if (categories === null) {
+    return <ErrorComponent urlError={props.urlError} />;
+  }
   const updatedCategories = [...categories];
   const tasksIndex = categories?.findIndex(
     (item) => item.name === props.category
   );
-
-  if (categories === null) {
-    return <ErrorComponent />;
-  }
 
   const addTask = () => {
     if (newTask === "" || newTask === undefined) {
@@ -53,7 +52,6 @@ const TaskCategory = (props) => {
   const deleteTask = (index) => {
     updatedCategories[tasksIndex].tasks.splice(index, 1);
     localStorage.setItem("categories", JSON.stringify(updatedCategories));
-
     setCategories(getLocal);
 
     // Notification;
@@ -73,7 +71,7 @@ const TaskCategory = (props) => {
     <>
       <div className="tasks">
         {tasksIndex < 0 ? (
-          <ErrorComponent />
+          <ErrorComponent urlError={props.urlError} />
         ) : (
           categories[tasksIndex]?.tasks.map((task, index) => (
             <div className="tasks__block" key={task[0]}>
@@ -81,8 +79,12 @@ const TaskCategory = (props) => {
                 className="tasks__block--bookmark"
                 onClick={() => toogleBookmarkStatus(index, task[0])}
               >
-                <img src={task[1] ? bookmarkActive : bookmark} alt="bookmark" />
+                <img
+                  src={task[1] ? bookmarkActiveImage : bookmarkImage}
+                  alt="bookmark"
+                />
               </button>
+              {index}
               <h2>{task[0]}</h2>
               <Button
                 text="Zakończ"

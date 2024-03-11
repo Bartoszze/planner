@@ -8,15 +8,18 @@
             min-width: 30%
             margin-left: 15px
     &__block
+        animation: test 0.4s ease-out
         background-color: rgba(#F9FAFB, 50%)
         border-radius: 8px
-        height: 65px
+        min-height: 65px
         margin-top: 15px
         display: flex
         justify-content: space-between
         align-items: center
         $size: 15px
         padding: 0 $size 0 $size
+        h2
+            padding: 15px
         &--bookmark
             cursor: pointer
             background: #ffffff00
@@ -33,3 +36,13 @@
         height: 180px
     h1
         margin: 20px
+    span
+        color: #fca5a5
+
+@keyframes test
+    0%
+        opacity: 0
+        transform: scale(90%)
+    100%
+        opacity: 1
+        transform: scale(100%)

@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import "./index.sass";
 
 export const notifySuccess = (text) =>
   toast.success(text, {

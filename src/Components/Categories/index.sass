@@ -12,6 +12,7 @@
         font-size: 15px
         margin-bottom: 35px
     &__block
+        animation: test 0.2s ease-out
         &--img
             background-color: rgba(#FFFFFF, 50%)
             width: 215px
@@ -19,3 +20,11 @@
             min-width: 215px
             min-height: 195px
             border-radius: 8px
+
+@keyframes test
+    0%
+        opacity: 0
+        transform: scale(80%)
+    100%
+        opacity: 1
+        transform: scale(100%)
