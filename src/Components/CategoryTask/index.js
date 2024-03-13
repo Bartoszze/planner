@@ -6,9 +6,10 @@ import bookmarkActiveImage from "../../Assets/Images/bookmarkactive.png";
 import Button from "../ReusableComponents/Button";
 import SearchBar from "../ReusableComponents/Input";
 import "./index.sass";
+import { useNavigate } from "react-router-dom";
 
 const TaskCategory = (props) => {
-  const [deleteIndex, setDeleteIndex] = useState();
+  let navigate = useNavigate();
   const [newTask, setNewTask] = useState();
   const getLocal = () => JSON.parse(localStorage.getItem("categories"));
   const [categories, setCategories] = useState(getLocal);
@@ -56,9 +57,9 @@ const TaskCategory = (props) => {
 
   const deleteTask = (index) => {
     updatedCategories[tasksIndex].tasks.splice(index, 1);
-    // setDeleteIndex(index);
-    setCategories(getLocal);
+    console.log(updatedCategories);
     localStorage.setItem("categories", JSON.stringify(updatedCategories));
+    setCategories(getLocal);
 
     // Notification;
     notifySuccess("Usunięto zadanie");
@@ -68,9 +69,10 @@ const TaskCategory = (props) => {
     updatedCategories.splice(tasksIndex, 1);
     localStorage.setItem("categories", JSON.stringify(updatedCategories));
     setCategories(getLocal);
+    navigate("/");
+
     // Notification
     notifySuccess("Usunięto kategorie");
-    // Dodac redirect do homepage
   };
 
   return (
@@ -94,7 +96,7 @@ const TaskCategory = (props) => {
               <Button
                 text="Zakończ"
                 onClick={() => deleteTask(index)}
-                color="#549C77"
+                color="#457D5D"
               />
             </div>
           ))
