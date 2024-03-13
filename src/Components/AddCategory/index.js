@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import Button from "../ReusableComponents/Button";
 import SearchBar from "../ReusableComponents/Input";
 import "./index.sass";
+import { notifyWarn } from "../ReusableComponents/Notifications";
 
 const AddCategory = ({ show, onClose }) => {
-  const [newCategory, setNewCategory] = useState(false);
-  const [urlIMG, setUrlIMG] = useState(false);
+  const [newCategory, setNewCategory] = useState("");
+  const [urlIMG, setUrlIMG] = useState("");
   const localStorageCategories = JSON.parse(localStorage.getItem("categories"));
 
-  // If localstorage is empty initialize categories
   useEffect(() => {
     if (localStorageCategories === null) {
       localStorage.setItem("categories", JSON.stringify([]));
@@ -16,15 +16,28 @@ const AddCategory = ({ show, onClose }) => {
   }, [localStorageCategories]);
 
   const addCat = () => {
-    const ob = {
-      name: newCategory,
-      url: urlIMG,
-      tasks: [],
-    };
+    if (!urlIMG || !newCategory) {
+      notifyWarn(
+        "Dodanie kategorii nie powiodło się, sprawdź czy oba pola są uzupełnione."
+      );
+    } else {
+      console.log(localStorageCategories);
+      if (localStorageCategories.find((e) => e.name === newCategory)) {
+        notifyWarn(
+          "Dodanie kategorii nie powiodło się, kategoria juz istnieje."
+        );
+      } else {
+        const ob = {
+          name: newCategory,
+          url: urlIMG,
+          tasks: [],
+        };
 
-    const newLocal = [...localStorageCategories, ob];
-    localStorage.setItem("categories", JSON.stringify(newLocal));
-    onClose();
+        const newLocal = [...localStorageCategories, ob];
+        localStorage.setItem("categories", JSON.stringify(newLocal));
+        onClose();
+      }
+    }
   };
 
   return (

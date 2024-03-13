@@ -8,6 +8,7 @@ import SearchBar from "../ReusableComponents/Input";
 import "./index.sass";
 
 const TaskCategory = (props) => {
+  const [deleteIndex, setDeleteIndex] = useState();
   const [newTask, setNewTask] = useState();
   const getLocal = () => JSON.parse(localStorage.getItem("categories"));
   const [categories, setCategories] = useState(getLocal);
@@ -21,21 +22,25 @@ const TaskCategory = (props) => {
 
   const addTask = () => {
     if (newTask === "" || newTask === undefined) {
-      notifyWarn("Próbujesz dodać puste zadanie lub takie same");
+      notifyWarn("Próbujesz dodać puste zadanie");
     } else {
-      const newObject = {
-        ...categories[tasksIndex],
-        tasks: [...categories[tasksIndex].tasks, [`${newTask}`, false]],
-      };
-      const updatedCategories = [...categories];
-      updatedCategories[tasksIndex] = newObject;
+      if (categories[tasksIndex]?.tasks.find((e) => e[0] === newTask)) {
+        notifyWarn("Próbujesz dodać istniejące już zadanie");
+      } else {
+        const newObject = {
+          ...categories[tasksIndex],
+          tasks: [...categories[tasksIndex].tasks, [`${newTask}`, false]],
+        };
+        const updatedCategories = [...categories];
+        updatedCategories[tasksIndex] = newObject;
 
-      localStorage.setItem("categories", JSON.stringify(updatedCategories));
-      setNewTask("");
+        localStorage.setItem("categories", JSON.stringify(updatedCategories));
+        setNewTask("");
 
-      // Notification
-      notifySuccess("Dodano zadanie");
-      setCategories(getLocal);
+        // Notification
+        notifySuccess("Dodano zadanie");
+        setCategories(getLocal);
+      }
     }
   };
 
@@ -51,8 +56,9 @@ const TaskCategory = (props) => {
 
   const deleteTask = (index) => {
     updatedCategories[tasksIndex].tasks.splice(index, 1);
-    localStorage.setItem("categories", JSON.stringify(updatedCategories));
+    // setDeleteIndex(index);
     setCategories(getLocal);
+    localStorage.setItem("categories", JSON.stringify(updatedCategories));
 
     // Notification;
     notifySuccess("Usunięto zadanie");
@@ -84,7 +90,6 @@ const TaskCategory = (props) => {
                   alt="bookmark"
                 />
               </button>
-              {index}
               <h2>{task[0]}</h2>
               <Button
                 text="Zakończ"

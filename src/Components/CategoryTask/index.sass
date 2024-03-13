@@ -8,7 +8,7 @@
             min-width: 30%
             margin-left: 15px
     &__block
-        animation: test 0.4s ease-out
+        animation: displayAnimation 0.2s ease-out
         background-color: rgba(#F9FAFB, 50%)
         border-radius: 8px
         min-height: 65px
@@ -19,6 +19,8 @@
         $size: 15px
         padding: 0 $size 0 $size
         h2
+            max-width: 100%
+            overflow: hidden
             padding: 15px
         &--bookmark
             cursor: pointer
@@ -39,10 +41,21 @@
     span
         color: #fca5a5
 
-@keyframes test
+.test
+    animation: deleteAnimation 2s
+
+@keyframes displayAnimation
     0%
         opacity: 0
         transform: scale(90%)
     100%
         opacity: 1
+        transform: scale(100%)
+
+@keyframes deleteAnimation
+    0%
+        opacity: 1
+        transform: scale(90%)
+    90%
+        opacity: 0
         transform: scale(100%)
