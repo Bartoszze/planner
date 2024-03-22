@@ -11,7 +11,7 @@ const TaskQuanity = () => {
 
   return (
     <p className="task">
-      {quanity === 0 ? "brak" : quanity}
+      {quanity === 0 ? "Brak" : quanity}
       {quanity > 4 || quanity === 0 ? " kategorii" : " kategorie"}
     </p>
   );

@@ -1,23 +1,39 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import errorCover from "../../Assets/Images/404.svg";
+import add from "./../../Assets/Images/add.png";
 import "./index.sass";
-import { useState } from "react";
 
 const Categories = () => {
   const [show, setShow] = useState(false);
-
   const localStorageCategories = JSON.parse(localStorage.getItem("categories"));
 
-  if (!localStorageCategories[0]) {
-    console.log("asd");
-    // Wsywietlanie informacji zeby dodac kategorie
-  }
+  useEffect(() => {
+    if (localStorageCategories === null) {
+      localStorage.setItem("categories", JSON.stringify([]));
+      setShow(true);
+    } else {
+      if (!localStorageCategories[0]) {
+        setShow(true);
+      } else {
+        setShow(false);
+      }
+    }
+  }, [localStorageCategories, show]);
+
   const onImageError = (e) => {
     e.target.src = errorCover;
   };
 
   return (
     <div className="categories">
+      {show && (
+        <div className="categories__add">
+          <img src={add} alt="Add post" />
+          <h2>Brak katologów</h2>
+          <p>Dodaj katalog aby zobaczyć go tutaj.</p>
+        </div>
+      )}
       {localStorageCategories &&
         localStorageCategories.map((category) => (
           <Link key={category.name} to={"/category/" + category.name}>

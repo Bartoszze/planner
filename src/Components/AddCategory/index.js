@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../ReusableComponents/Button";
 import SearchBar from "../ReusableComponents/Input";
 import "./index.sass";
@@ -8,12 +8,6 @@ const AddCategory = ({ show, onClose }) => {
   const [newCategory, setNewCategory] = useState("");
   const [urlIMG, setUrlIMG] = useState("");
   const localStorageCategories = JSON.parse(localStorage.getItem("categories"));
-
-  useEffect(() => {
-    if (localStorageCategories === null) {
-      localStorage.setItem("categories", JSON.stringify([]));
-    }
-  }, [localStorageCategories]);
 
   const addCat = () => {
     if (!urlIMG || !newCategory) {

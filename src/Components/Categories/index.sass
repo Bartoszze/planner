@@ -3,16 +3,51 @@
     display: flex
     flex-wrap: wrap
     justify-content: space-between
-    max-height: 600px
+    height: 611px
     overflow-y: scroll
+    a
+        height: min-content
     h2
         margin-top: 5px
     p
         color: rgba(#BDBDBD, 85%)
         font-size: 15px
         margin-bottom: 35px
+    &__add
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-direction: column
+        width: 100%
+        height: 611px
+        h2
+            padding: 5px
+        p
+            font-size: 20px
+        img
+            width: 30%
     &__block
+        position: relative
         animation: test 0.2s ease-out
+        &::after
+            content: ''
+            position: absolute
+            left: 50%
+            top: 50%
+            transform: translate(-50%,-50%)
+            width: 60%
+            height: 60%
+            border-radius: 8px
+            background-color: red
+            z-index: -1
+            transition: 0.1s ease-out
+        &:hover
+            &::after
+                animation: slideIn 2s
+                width: 100%
+                height: 100%
+                // background-color: rgba(#FFFFFF, 50%)
+
         &--img
             background-color: rgba(#FFFFFF, 50%)
             width: 215px
