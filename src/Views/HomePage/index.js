@@ -16,8 +16,9 @@ const HomePage = () => {
       <SearchBar onInputChange={setSearch} />
       <Categories />
       <Button
-        color="#549C77"
+        hoverColor="rgba(74, 222, 128, 0.3)"
         text="Dodaj nową kategorie"
+        color="rgba(249, 250, 251, 0.3)"
         onClick={() => setShowAddBox(!showAddBox)}
       />
       <AddCategory show={showAddBox} onClose={() => setShowAddBox(false)} />

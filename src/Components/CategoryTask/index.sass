@@ -7,9 +7,8 @@
         button
             min-width: 30%
             margin-left: 15px
-
     &__block
-        animation: displayAnimation 0.2s ease-out
+        animation: taskAnimation 0.2s ease-out
         background-color: rgba(#F9FAFB, 50%)
         border-radius: 8px
         min-height: 65px
@@ -42,10 +41,7 @@
     span
         color: #fca5a5
 
-.test
-    animation: deleteAnimation 2s
-
-@keyframes displayAnimation
+@keyframes taskAnimation
     0%
         opacity: 0
         transform: scale(90%)

@@ -7,9 +7,9 @@
     background: url("./../../Assets/Images/bg.jpg")
     background-size: cover
     background-position: center
+    overflow: hidden
 
 .block
-    animation: 0.3s slideIn ease-out
     display: flex
     width: 1440px
     height: 890px
@@ -26,9 +26,14 @@
         background-color: rgba(#810000, 10%)
         width: 70%
 
+.animation
+    animation: 0.3s slideIn ease-out
+
 @keyframes slideIn
     0%
-        opacity: 0
-        transform: scale(80%)
+        opacity: 0.5
+        transform: scale(30%) translate(0%,100%)
+
     100%
         opacity: 1
+        transform: scale(100%) translate(0%,0%)

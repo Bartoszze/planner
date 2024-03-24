@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import errorCover from "../../Assets/Images/404.svg";
+import errorCover from "../../Assets/Images/404.png";
 import add from "./../../Assets/Images/add.png";
 import "./index.sass";
 
@@ -29,7 +29,7 @@ const Categories = () => {
     <div className="categories">
       {show && (
         <div className="categories__add">
-          <img src={add} alt="Add post" />
+          <img src={add} alt="Add post" fetchpriority="high" />
           <h2>Brak katologów</h2>
           <p>Dodaj katalog aby zobaczyć go tutaj.</p>
         </div>

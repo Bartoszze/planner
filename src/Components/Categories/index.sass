@@ -25,41 +25,30 @@
         p
             font-size: 20px
         img
+            background-color: rgba(#BDBDBD, 15%)
+            border-radius: 12px
             width: 30%
     &__block
         position: relative
-        animation: test 0.2s ease-out
+        animation: opacityAnimation 0.2s ease-out
         &::after
             content: ''
             position: absolute
-            left: 50%
-            top: 50%
-            transform: translate(-50%,-50%)
-            width: 60%
-            height: 60%
+            top: 0%
+            width: 100%
+            height: 80%
             border-radius: 8px
-            background-color: red
+            background-color: rgba(#BDBDBD, 15%)
             z-index: -1
             transition: 0.1s ease-out
         &:hover
             &::after
-                animation: slideIn 2s
-                width: 100%
-                height: 100%
-                // background-color: rgba(#FFFFFF, 50%)
-
+                border-radius: 30%
+                background-color: rgba(#BDBDBD, 45%)
         &--img
-            background-color: rgba(#FFFFFF, 50%)
+            animation: showAnimation 0.1s linear
             width: 215px
             height: 195px
             min-width: 215px
             min-height: 195px
             border-radius: 8px
-
-@keyframes test
-    0%
-        opacity: 0
-        transform: scale(80%)
-    100%
-        opacity: 1
-        transform: scale(100%)

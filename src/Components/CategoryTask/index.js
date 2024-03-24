@@ -96,7 +96,8 @@ const TaskCategory = (props) => {
               <Button
                 text="Zakończ"
                 onClick={() => deleteTask(index)}
-                color="#457D5D"
+                hoverColor="rgba(248, 113, 113, 0.6)"
+                color="#AE505A"
               />
             </div>
           ))
@@ -106,11 +107,17 @@ const TaskCategory = (props) => {
         <>
           <div className="tasks__add">
             <SearchBar onInputChange={setNewTask} color="#F9FAFB50" />
-            <Button text="Dodaj zadanie" onClick={addTask} color="#F9FAFB50" />
+            <Button
+              hoverColor="rgba(74, 222, 128, 0.3)"
+              text="Dodaj zadanie"
+              onClick={addTask}
+              color="rgba(249, 250, 251, 0.3)"
+            />
           </div>
           <Button
+            hoverColor="rgba(248, 113, 113, 0.3)"
             text="Usuń kategorie"
-            color="#AE505A"
+            color="rgba(249, 250, 251, 0.3)"
             onClick={deleteCategory}
           />
         </>

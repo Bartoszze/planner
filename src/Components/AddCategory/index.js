@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Button from "../ReusableComponents/Button";
 import SearchBar from "../ReusableComponents/Input";
-import "./index.sass";
 import { notifyWarn } from "../ReusableComponents/Notifications";
+import "./index.sass";
 
 const AddCategory = ({ show, onClose }) => {
   const [newCategory, setNewCategory] = useState("");
@@ -41,8 +41,18 @@ const AddCategory = ({ show, onClose }) => {
       <h2>Url okładki</h2>
       <SearchBar onInputChange={setUrlIMG} />
       <div className="addC__buttons">
-        <Button color="#AE505A" onClick={onClose} text="Anuluj" />
-        <Button color="#549C77" text="Dodaj" onClick={addCat} />
+        <Button
+          color="#AE505A"
+          onClick={onClose}
+          hoverColor="rgba(248, 113, 113, 0.3)"
+          text="Anuluj"
+        />
+        <Button
+          color="#549C77"
+          hoverColor="rgba(74, 222, 128, 0.3)"
+          text="Dodaj"
+          onClick={addCat}
+        />
       </div>
     </div>
   );
