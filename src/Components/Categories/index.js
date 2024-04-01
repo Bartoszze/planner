@@ -1,29 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import errorCover from "../../Assets/Images/404.png";
 import add from "./../../Assets/Images/add.png";
 import "./index.sass";
 
-const Categories = () => {
+const Categories = (props) => {
   const [show, setShow] = useState(false);
-  const localStorageCategories = JSON.parse(localStorage.getItem("categories"));
+  const getLocal = () => JSON.parse(localStorage.getItem("categories"));
+  const [localStorageCategories, setLocalStorageCategories] =
+    useState(getLocal);
+
+  useEffect(() => {
+    setLocalStorageCategories(props.localStorage);
+  }, [props.localStorage]);
 
   useEffect(() => {
     if (localStorageCategories === null) {
       localStorage.setItem("categories", JSON.stringify([]));
       setShow(true);
     } else {
-      if (!localStorageCategories[0]) {
-        setShow(true);
-      } else {
-        setShow(false);
-      }
+      setShow(!localStorageCategories?.length ? true : false);
     }
   }, [localStorageCategories, show]);
 
-  const onImageError = (e) => {
+  useEffect(() => {
+    if (props.find) {
+      const filteredCategories = localStorageCategories.filter((element) =>
+        element.name.includes(props.find)
+      );
+      setLocalStorageCategories(
+        filteredCategories.length === 0 ? getLocal : filteredCategories
+      );
+    } else {
+      setLocalStorageCategories(getLocal);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.find]);
+
+  const onImageError = useCallback((e) => {
     e.target.src = errorCover;
-  };
+  }, []);
 
   return (
     <div className="categories">

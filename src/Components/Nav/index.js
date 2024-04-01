@@ -1,5 +1,7 @@
 import BookMark from "../BookMark";
-import Pomodoro from "../Pomodoro";
+// import BookMark from "../Tasks";
+import NavInformation from "../NavInformation";
+// import Pomodoro from "../Pomodoro";
 import "./index.sass";
 
 const Nav = () => {
@@ -9,8 +11,9 @@ const Nav = () => {
         <h1>Planner</h1>
         <p>Wszystkie zadania w jednym miejscu.</p>
       </div>
+      <NavInformation />
       {/* <BookMark /> */}
-      <Pomodoro />
+      {/* <Pomodoro /> */}
     </div>
   );
 };
