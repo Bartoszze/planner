@@ -1,4 +1,4 @@
-import TaskQuanity from "../../Components/TasksInfo";
+import Taskquantity from "../../Components/TasksInfo";
 import Categories from "../../Components/Categories";
 import AddCategory from "../../Components/AddCategory";
 import { useState } from "react";
@@ -17,7 +17,7 @@ const HomePage = () => {
   return (
     <>
       <h1>Kategorie</h1>
-      <TaskQuanity />
+      <Taskquantity />
       <SearchBar onInputChange={setSearch} />
       <Categories find={search} localStorage={localStorageCategories} />
       <AddCategory onClick={refreshStorage} />
