@@ -1,5 +1,6 @@
 import Loader from "../Loader/";
 import Nav from "../../Components/Nav";
+import Mobile from "../../Components/Mobile";
 import { Suspense, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -26,6 +27,7 @@ const Main = () => {
         </div>
       </div>
       <ToastContainer limit={3} />
+      <Mobile />
     </Suspense>
   );
 };

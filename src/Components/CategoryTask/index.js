@@ -106,7 +106,7 @@ const TaskCategory = (props) => {
       {tasksIndex >= 0 && (
         <>
           <div className="tasks__add">
-            <SearchBar onInputChange={setNewTask} color="#F9FAFB50" />
+            <SearchBar onInputChange={setNewTask} />
             <Button
               hoverColor="rgba(74, 222, 128, 0.3)"
               text="Dodaj zadanie"

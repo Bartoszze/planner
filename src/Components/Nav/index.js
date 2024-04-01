@@ -1,6 +1,5 @@
-import BookMark from "../BookMark";
+// import BookMark from "../BookMark";
 // import BookMark from "../Tasks";
-import NavInformation from "../NavInformation";
 // import Pomodoro from "../Pomodoro";
 import "./index.sass";
 
@@ -11,7 +10,7 @@ const Nav = () => {
         <h1>Planner</h1>
         <p>Wszystkie zadania w jednym miejscu.</p>
       </div>
-      <NavInformation />
+      <a href="https://github.com/Bartoszze">GitHub</a>
       {/* <BookMark /> */}
       {/* <Pomodoro /> */}
     </div>
