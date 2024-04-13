@@ -36,7 +36,6 @@ const TaskCategory = (props) => {
         updatedCategories[tasksIndex] = newObject;
 
         localStorage.setItem("categories", JSON.stringify(updatedCategories));
-        setNewTask("");
 
         // Notification
         notifySuccess("Dodano zadanie");
