@@ -18,14 +18,21 @@
         align-items: center
         $size: 15px
         padding: 0 $size 0 $size
+        transition: 0.1s linear
         h2
             max-width: 100%
             overflow: hidden
             padding: 15px
+        &:hover
+            transform: scale(98%)
         &--bookmark
             cursor: pointer
             background: #ffffff00
             border: 0
+            transition: 0.1s linear
+
+            &:hover
+                transform: scale(108%)
 
 .errorCategory
     height: 600px
@@ -44,7 +51,5 @@
 @keyframes taskAnimation
     0%
         opacity: 0
-        transform: scale(90%)
     100%
         opacity: 1
-        transform: scale(100%)
