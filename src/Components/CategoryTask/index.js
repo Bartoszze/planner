@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { notifySuccess, notifyWarn } from "../ReusableComponents/Notifications";
 import ErrorComponent from "../ErrorInfo";
 import bookmarkImage from "../../Assets/Images/bookmark.png";
@@ -13,13 +13,19 @@ const TaskCategory = (props) => {
   const [newTask, setNewTask] = useState();
   const getLocal = () => JSON.parse(localStorage.getItem("categories"));
   const [categories, setCategories] = useState(getLocal);
+  const [updatedCategories, setUpdateCategories] = useState([...categories]);
   if (categories === null) {
-    return <ErrorComponent urlError={props.urlError} />;
+    // return <ErrorComponent urlError={props.urlError} />;
   }
-  const updatedCategories = [...categories];
+
   const tasksIndex = categories?.findIndex(
     (item) => item.name === props.category
   );
+
+  useEffect(() => {
+    localStorage.setItem("categories", JSON.stringify(updatedCategories));
+    setCategories(getLocal);
+  }, [updatedCategories]);
 
   const addTask = () => {
     if (newTask === "" || newTask === undefined) {
@@ -28,47 +34,74 @@ const TaskCategory = (props) => {
       if (categories[tasksIndex]?.tasks.find((e) => e[0] === newTask)) {
         notifyWarn("Próbujesz dodać istniejące już zadanie");
       } else {
-        const newObject = {
-          ...categories[tasksIndex],
-          tasks: [...categories[tasksIndex].tasks, [`${newTask}`, false]],
-        };
-        const updatedCategories = [...categories];
-        updatedCategories[tasksIndex] = newObject;
+        setUpdateCategories((prevCategories) => {
+          const newCategories = [...prevCategories];
+          const newTaskArray = [
+            ...newCategories[tasksIndex].tasks,
+            [`${newTask}`, false],
+          ];
 
-        localStorage.setItem("categories", JSON.stringify(updatedCategories));
+          newCategories[tasksIndex] = {
+            ...newCategories[tasksIndex],
+            tasks: newTaskArray,
+          };
+
+          return newCategories;
+        });
 
         // Notification
         notifySuccess("Dodano zadanie");
-        setCategories(getLocal);
       }
     }
   };
 
   const toogleBookmarkStatus = (index, text) => {
-    updatedCategories[tasksIndex].tasks[index][1] =
-      !updatedCategories[tasksIndex].tasks[index][1];
-    localStorage.setItem("categories", JSON.stringify(updatedCategories));
-    setCategories(getLocal);
+    setUpdateCategories((prevCategories) => {
+      const newCategories = [...prevCategories];
+
+      const updatedTasks = newCategories[tasksIndex].tasks.map(
+        (task, taskIndex) => {
+          if (taskIndex === index) {
+            return [task[0], !task[1]];
+          }
+          return task;
+        }
+      );
+      newCategories[tasksIndex] = {
+        ...newCategories[tasksIndex],
+        tasks: updatedTasks,
+      };
+
+      return newCategories;
+    });
 
     // Notification;
     notifySuccess("Zmieniono status zadania: " + text);
   };
 
   const deleteTask = (index) => {
-    updatedCategories[tasksIndex].tasks.splice(index, 1);
-    console.log(updatedCategories);
-    localStorage.setItem("categories", JSON.stringify(updatedCategories));
-    setCategories(getLocal);
+    setUpdateCategories((prevCategories) => {
+      const newCategories = [...prevCategories];
+      newCategories[tasksIndex].tasks.splice(index, 1);
+
+      return newCategories;
+    });
 
     // Notification;
     notifySuccess("Usunięto zadanie");
   };
 
   const deleteCategory = () => {
-    updatedCategories.splice(tasksIndex, 1);
-    localStorage.setItem("categories", JSON.stringify(updatedCategories));
-    setCategories(getLocal);
-    navigate("/");
+    setUpdateCategories((prevCategories) => {
+      const newCategories = [...prevCategories];
+      newCategories.splice(tasksIndex, 1);
+      return newCategories;
+    });
+
+    // Navigate to homePage
+    setTimeout(() => {
+      navigate("/");
+    }, 100);
 
     // Notification
     notifySuccess("Usunięto kategorie");
