@@ -13,10 +13,20 @@ const TaskCategory = (props) => {
   const [newTask, setNewTask] = useState();
   const getLocal = () => JSON.parse(localStorage.getItem("categories"));
   const [categories, setCategories] = useState(getLocal);
-  const [updatedCategories, setUpdateCategories] = useState([...categories]);
-  if (categories === null) {
-    // return <ErrorComponent urlError={props.urlError} />;
-  }
+  const [notFound, setNotFound] = useState(false);
+  const [updatedCategories, setUpdateCategories] = useState(() => {
+    if (categories === null) {
+      return [];
+    } else {
+      return [...categories];
+    }
+  });
+
+  useEffect(() => {
+    if (updatedCategories.length === 0) {
+      setNotFound(true);
+    }
+  }, []);
 
   const tasksIndex = categories?.findIndex(
     (item) => item.name === props.category
@@ -109,49 +119,55 @@ const TaskCategory = (props) => {
 
   return (
     <>
-      <div className="tasks">
-        {tasksIndex < 0 ? (
-          <ErrorComponent urlError={props.urlError} />
-        ) : (
-          categories[tasksIndex]?.tasks.map((task, index) => (
-            <div className="tasks__block" key={task[0]}>
-              <button
-                className="tasks__block--bookmark"
-                onClick={() => toogleBookmarkStatus(index, task[0])}
-              >
-                <img
-                  src={task[1] ? bookmarkActiveImage : bookmarkImage}
-                  alt="bookmark"
-                />
-              </button>
-              <h2>{task[0]}</h2>
-              <Button
-                text="Zakończ"
-                onClick={() => deleteTask(index)}
-                hoverColor="rgba(248, 113, 113, 0.6)"
-                color="#AE505A"
-              />
-            </div>
-          ))
-        )}
-      </div>
-      {tasksIndex >= 0 && (
+      {notFound ? (
+        <ErrorComponent urlError={props.urlError} />
+      ) : (
         <>
-          <div className="tasks__add">
-            <SearchBar onInputChange={setNewTask} />
-            <Button
-              hoverColor="rgba(74, 222, 128, 0.3)"
-              text="Dodaj zadanie"
-              onClick={addTask}
-              color="rgba(249, 250, 251, 0.3)"
-            />
+          <div className="tasks">
+            {tasksIndex < 0 ? (
+              <ErrorComponent urlError={props.urlError} />
+            ) : (
+              categories[tasksIndex]?.tasks.map((task, index) => (
+                <div className="tasks__block" key={task[0]}>
+                  <button
+                    className="tasks__block--bookmark"
+                    onClick={() => toogleBookmarkStatus(index, task[0])}
+                  >
+                    <img
+                      src={task[1] ? bookmarkActiveImage : bookmarkImage}
+                      alt="bookmark"
+                    />
+                  </button>
+                  <h2>{task[0]}</h2>
+                  <Button
+                    text="Zakończ"
+                    onClick={() => deleteTask(index)}
+                    hoverColor="rgba(248, 113, 113, 0.6)"
+                    color="#AE505A"
+                  />
+                </div>
+              ))
+            )}
           </div>
-          <Button
-            hoverColor="rgba(248, 113, 113, 0.3)"
-            text="Usuń kategorie"
-            color="rgba(249, 250, 251, 0.3)"
-            onClick={deleteCategory}
-          />
+          {tasksIndex >= 0 && (
+            <>
+              <div className="tasks__add">
+                <SearchBar onInputChange={setNewTask} />
+                <Button
+                  hoverColor="rgba(74, 222, 128, 0.3)"
+                  text="Dodaj zadanie"
+                  onClick={addTask}
+                  color="rgba(249, 250, 251, 0.3)"
+                />
+              </div>
+              <Button
+                hoverColor="rgba(248, 113, 113, 0.3)"
+                text="Usuń kategorie"
+                color="rgba(249, 250, 251, 0.3)"
+                onClick={deleteCategory}
+              />
+            </>
+          )}
         </>
       )}
     </>
