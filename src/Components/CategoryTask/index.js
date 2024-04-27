@@ -13,7 +13,6 @@ const TaskCategory = (props) => {
   const [newTask, setNewTask] = useState();
   const getLocal = () => JSON.parse(localStorage.getItem("categories"));
   const [categories, setCategories] = useState(getLocal);
-  const [notFound, setNotFound] = useState(false);
   const [updatedCategories, setUpdateCategories] = useState(() => {
     if (categories === null) {
       return [];
@@ -21,12 +20,6 @@ const TaskCategory = (props) => {
       return [...categories];
     }
   });
-
-  useEffect(() => {
-    if (updatedCategories.length === 0) {
-      setNotFound(true);
-    }
-  }, []);
 
   const tasksIndex = categories?.findIndex(
     (item) => item.name === props.category
@@ -119,7 +112,7 @@ const TaskCategory = (props) => {
 
   return (
     <>
-      {notFound ? (
+      {updatedCategories.length === 0 ? (
         <ErrorComponent urlError={props.urlError} />
       ) : (
         <>
