@@ -7,6 +7,7 @@ import Button from "../ReusableComponents/Button";
 import SearchBar from "../ReusableComponents/Input";
 import "./index.sass";
 import { useNavigate } from "react-router-dom";
+import { Reorder } from "framer-motion";
 
 const TaskCategory = (props) => {
   let navigate = useNavigate();
@@ -120,26 +121,39 @@ const TaskCategory = (props) => {
             {tasksIndex < 0 ? (
               <ErrorComponent urlError={props.urlError} />
             ) : (
-              categories[tasksIndex]?.tasks.map((task, index) => (
-                <div className="tasks__block" key={task[0]}>
-                  <button
-                    className="tasks__block--bookmark"
-                    onClick={() => toogleBookmarkStatus(index, task[0])}
-                  >
-                    <img
-                      src={task[1] ? bookmarkActiveImage : bookmarkImage}
-                      alt="bookmark"
-                    />
-                  </button>
-                  <h2>{task[0]}</h2>
-                  <Button
-                    text="Zakończ"
-                    onClick={() => deleteTask(index)}
-                    hoverColor="rgba(248, 113, 113, 0.6)"
-                    color="#AE505A"
-                  />
-                </div>
-              ))
+              <Reorder.Group
+                axis="y"
+                onReorder={(newTasks) => {
+                  const updatedCategories = [...categories];
+                  updatedCategories[tasksIndex].tasks = newTasks;
+                  setCategories(updatedCategories);
+                  setUpdateCategories(categories);
+                }}
+                values={categories[tasksIndex]?.tasks}
+              >
+                {categories[tasksIndex]?.tasks.map((task, index) => (
+                  <Reorder.Item key={task[0]} value={task}>
+                    <div className="tasks__block">
+                      <button
+                        className="tasks__block--bookmark"
+                        onClick={() => toogleBookmarkStatus(index, task[0])}
+                      >
+                        <img
+                          src={task[1] ? bookmarkActiveImage : bookmarkImage}
+                          alt="bookmark"
+                        />
+                      </button>
+                      <h2>{task[0]}</h2>
+                      <Button
+                        text="Zakończ"
+                        onClick={() => deleteTask(index)}
+                        hoverColor="rgba(248, 113, 113, 0.6)"
+                        color="#AE505A"
+                      />
+                    </div>
+                  </Reorder.Item>
+                ))}
+              </Reorder.Group>
             )}
           </div>
           {tasksIndex >= 0 && (
