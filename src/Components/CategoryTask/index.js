@@ -111,6 +111,12 @@ const TaskCategory = (props) => {
     notifySuccess("Usunięto kategorie");
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      addTask();
+    }
+  };
+
   return (
     <>
       {updatedCategories.length === 0 ? (
@@ -158,7 +164,7 @@ const TaskCategory = (props) => {
           </div>
           {tasksIndex >= 0 && (
             <>
-              <div className="tasks__add">
+              <div className="tasks__add" onKeyDown={handleKeyDown}>
                 <SearchBar onInputChange={setNewTask} />
                 <Button
                   hoverColor="rgba(74, 222, 128, 0.3)"
