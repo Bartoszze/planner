@@ -8,8 +8,9 @@
             min-width: 30%
             margin-left: 15px
     &__block
+        cursor: pointer
         animation: taskAnimation 0.2s ease-out
-        background-color: rgba(#F9FAFB, 50%)
+        background-color: rgba(249, 250, 251, 0.314)
         border-radius: 8px
         min-height: 65px
         margin-top: 15px
@@ -19,11 +20,11 @@
         $size: 15px
         padding: 0 $size 0 $size
         transition: 0.1s linear
-        cursor: pointer
         h2
-            max-width: 100%
+            width: 100%
             overflow: hidden
-            padding: 15px
+            padding: 25px
+            font-weight: 200
         &:hover
             transform: scale(98%)
         &--bookmark
@@ -48,6 +49,11 @@
         margin: 20px
     span
         color: #fca5a5
+
+.mark
+    transition: 0.1s linear
+    border: 3px solid #744ADE
+    background-color: rgba(#c7bedf, 50%)
 
 @keyframes taskAnimation
     0%

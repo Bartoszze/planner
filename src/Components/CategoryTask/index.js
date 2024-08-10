@@ -133,7 +133,7 @@ const TaskCategory = (props) => {
               >
                 {categories[tasksIndex]?.tasks.map((task, index) => (
                   <Reorder.Item key={task[0]} value={task}>
-                    <div className="tasks__block">
+                    <div className={`tasks__block ${task[1] ? "mark" : ""} `}>
                       <button
                         className="tasks__block--bookmark"
                         onClick={() => toogleBookmarkStatus(index, task[0])}
