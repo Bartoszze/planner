@@ -7,7 +7,7 @@ Adding Task Tiles
 - Inside the tile, you can start adding tasks by typing in the input field and pressing "Enter".
   
 Managing Tasks
-- Add Tasks: Type the task in the input field within a tile and press "Enter".
+- Add Tasks: Type the task in the input field within a tile and click button "add task" or press "Enter".
 - Delete Tasks: Click the delete icon next to the task you want to remove.
 - Bookmark: Click the bookmark icon next to a task to mark it as important.
 - Drag&Drop: Drag a task to change its position.
